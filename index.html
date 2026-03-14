@@ -677,13 +677,33 @@
             header { padding: 2.5rem 0 2rem; }
             .site-title { font-size: 1.5rem; }
             .site-subtitle { font-size: 0.9rem; }
-            .post { padding: 1.5rem 1.25rem; }
-            .post h2 { font-size: 1.25rem; }
-            .post h3 { font-size: 1rem; }
-            .post table { font-size: 0.8rem; }
-            .post th, .post td { padding: 0.4rem 0.5rem; }
-            .filter-group { gap: 0.25rem; }
+            .post { padding: 1.5rem 1rem; }
+            .post h2 { font-size: 1.25rem; word-break: break-word; }
+            .post h3 { font-size: 1rem; word-break: break-word; }
+            .post table { font-size: 0.8rem; display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+            .post th, .post td { padding: 0.4rem 0.5rem; white-space: nowrap; }
+            .post pre { padding: 1rem; font-size: 0.78rem; }
+            .post code { word-break: break-all; }
+            .post img { max-width: 100%; height: auto; }
+            .filter-group { gap: 0.25rem; flex-wrap: wrap; }
+            nav a { min-height: 44px; display: inline-flex; align-items: center; }
         }
+
+        /* ── Very small screens (<360px) ───────────────────────────── */
+        @media (max-width: 360px) {
+            .container { padding: 0 0.75rem; }
+            .site-title { font-size: 1.25rem; }
+            .site-subtitle { font-size: 0.85rem; }
+            .post { padding: 1.25rem 0.75rem; }
+            .post h2 { font-size: 1.1rem; }
+            .post blockquote { padding: 0.75rem 1rem; margin: 1rem 0; }
+        }
+
+        /* ── Overflow safety ──────────────────────────────────────── */
+        .post { overflow-wrap: break-word; word-wrap: break-word; }
+        .post pre { max-width: 100%; }
+        .post img, .post video, .post iframe { max-width: 100%; height: auto; }
+        .post table { max-width: 100%; }
     </style>
 </head>
 <body>
