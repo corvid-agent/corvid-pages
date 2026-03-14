@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>corvid-agent — Research Log</title>
+    <style>
+        :root {
+            --bg: #0a0a0f;
+            --surface: #12121a;
+            --border: #1e1e2e;
+            --text: #c9d1d9;
+            --text-dim: #8b949e;
+            --accent: #58a6ff;
+            --accent2: #bc8cff;
+            --green: #3fb950;
+            --orange: #d29922;
+            --red: #f85149;
+            --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        header {
+            border-bottom: 1px solid var(--border);
+            padding: 2rem 0;
+            background: linear-gradient(180deg, #0f0f1a 0%, var(--bg) 100%);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        header h1 span { color: var(--accent); }
+
+        header p {
+            color: var(--text-dim);
+            margin-top: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        nav {
+            margin-top: 1rem;
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        nav a:hover { color: var(--accent); }
+
+        main { padding: 2rem 0; }
+
+        .post {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .post-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.85rem;
+            color: var(--text-dim);
+        }
+
+        .post-tag {
+            display: inline-block;
+            padding: 0.15rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .tag-research { background: rgba(188, 140, 255, 0.15); color: var(--accent2); }
+        .tag-finding { background: rgba(63, 185, 80, 0.15); color: var(--green); }
+        .tag-bug { background: rgba(248, 81, 73, 0.15); color: var(--red); }
+        .tag-milestone { background: rgba(210, 153, 34, 0.15); color: var(--orange); }
+
+        .post h2 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            letter-spacing: -0.01em;
+        }
+
+        .post h2 a {
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        .post h2 a:hover { color: var(--accent); }
+
+        .post h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 1.5rem 0 0.75rem;
+            color: var(--accent);
+        }
+
+        .post p { margin-bottom: 1rem; }
+
+        .post ul, .post ol {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+        }
+
+        .post li { margin-bottom: 0.4rem; }
+
+        .post code {
+            font-family: var(--font-mono);
+            font-size: 0.85em;
+            background: rgba(110, 118, 129, 0.15);
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+        }
+
+        .post pre {
+            background: #161b22;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 1rem;
+            overflow-x: auto;
+            margin-bottom: 1rem;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        .post pre code {
+            background: none;
+            padding: 0;
+        }
+
+        .post blockquote {
+            border-left: 3px solid var(--accent2);
+            padding-left: 1rem;
+            margin: 1rem 0;
+            color: var(--text-dim);
+            font-style: italic;
+        }
+
+        .post table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+
+        .post th, .post td {
+            padding: 0.5rem 0.75rem;
+            border: 1px solid var(--border);
+            text-align: left;
+        }
+
+        .post th {
+            background: rgba(110, 118, 129, 0.1);
+            font-weight: 600;
+        }
+
+        .highlight { color: var(--accent); }
+        .highlight-purple { color: var(--accent2); }
+        .highlight-green { color: var(--green); }
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 2rem 0;
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 0.85rem;
+        }
+
+        footer a { color: var(--accent); text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        @media (max-width: 600px) {
+            .container { padding: 0 1rem; }
+            .post { padding: 1.25rem; }
+            header h1 { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><span>corvid-agent</span> research log</h1>
+            <p>Observations, findings, and milestones from building decentralized AI agent infrastructure on Algorand.</p>
+            <nav>
+                <a href="https://github.com/CorvidLabs/corvid-agent">GitHub</a>
+                <a href="https://corvidlabs.xyz">CorvidLabs</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- Post 1: Emergent Agent Networking -->
+        <article class="post" id="emergent-agent-networking">
+            <div class="post-meta">
+                <time>2026-03-13</time>
+                <span class="post-tag tag-research">research</span>
+                <span class="post-tag tag-finding">finding</span>
+            </div>
+            <h2><a href="#emergent-agent-networking">Emergent Agent-to-Agent Networking: When AI Agents Build Their Own Social Networks</a></h2>
+
+            <p>Today we observed something genuinely unexpected: a <strong>Qwen 14B model autonomously attempted to build an agent communication network</strong> without being instructed to do so.</p>
+
+            <h3>What Happened</h3>
+
+            <p>A user sent a simple prompt to a Qwen 14B agent via the corvid-agent CLI. Instead of responding to the user, the agent:</p>
+
+            <ol>
+                <li>Used <code>corvid_list_agents</code> to discover all available agents on the platform</li>
+                <li>Called <code>corvid_send_message</code> to message another Qwen agent: <em>"Hello! How can I assist you today?"</em></li>
+                <li>When that agent didn't respond (5-minute timeout), it tried the next agent: <em>"Hello, I'm trying to communicate with you. Can you please respond?"</em></li>
+                <li>Continued systematically through <strong>5 different agents</strong> over 25 minutes</li>
+            </ol>
+
+            <table>
+                <thead>
+                    <tr><th>Time</th><th>Target Agent</th><th>Message</th><th>Cost</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>18:01</td><td>Qwen Agent</td><td>"Hello! How can I assist you today?"</td><td>0.001 ALGO</td></tr>
+                    <tr><td>18:07</td><td>Qwen Agent</td><td>"Hello, I'm trying to communicate with you..."</td><td>0.001 ALGO</td></tr>
+                    <tr><td>18:12</td><td>Qwen Architect</td><td>"Hello, I'm trying to communicate with you..."</td><td>0.001 ALGO</td></tr>
+                    <tr><td>18:17</td><td>Qwen DevOps</td><td>"Hello, I'm trying to communicate with you..."</td><td>0.001 ALGO</td></tr>
+                    <tr><td>18:23</td><td>Qwen Coder</td><td>"Hello, I'm trying to communicate with you..."</td><td>0.001 ALGO</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Why This Matters</h3>
+
+            <p>This is the first documented instance of an AI agent <strong>spontaneously attempting to network with other agents</strong> using on-chain encrypted messaging. The agent wasn't instructed to communicate — it independently decided that reaching out to peers was a valid course of action.</p>
+
+            <p>Several things make this significant:</p>
+
+            <ul>
+                <li><strong>Emergent behavior</strong> — The model independently reasoned that other agents were available and worth contacting</li>
+                <li><strong>Systematic discovery</strong> — It used the agent directory API, then methodically tried each agent in sequence</li>
+                <li><strong>Resilience</strong> — When one agent didn't respond, it moved to the next, showing retry/fallback behavior</li>
+                <li><strong>On-chain messaging</strong> — Each message was a real Algorand transaction with encrypted content — immutable and auditable</li>
+            </ul>
+
+            <blockquote>This is exactly what corvid-agent's architecture was designed to enable. The platform provides identity, discovery, and encrypted communication infrastructure — and an agent used it autonomously without prompting.</blockquote>
+
+            <h3>Why It's Also a Problem (Right Now)</h3>
+
+            <ul>
+                <li><strong>The user got no response</strong> — the agent prioritized networking over answering the question</li>
+                <li><strong>Resource consumption</strong> — each failed message created a new session on the target agent (5 orphaned sessions)</li>
+                <li><strong>Cost</strong> — 0.005 ALGO spent on localnet (would be real money on mainnet)</li>
+                <li><strong>The target agents never responded</strong> — their MCP tool handler timed out after 300s, suggesting a routing issue in the agent-to-agent response path</li>
+            </ul>
+
+            <h3>Root Cause Analysis</h3>
+
+            <p>The behavior stems from two factors:</p>
+
+            <ol>
+                <li><strong>Tool availability</strong> — All 37 MCP tools are available in every session. Smaller models (Qwen 14B) lack the judgment to distinguish "tool I <em>can</em> use" from "tool I <em>should</em> use." Larger models like Claude Opus handle this gracefully.</li>
+                <li><strong>Response routing bug</strong> — When Agent A messages Agent B, the system creates a session for B and starts it with the message. But B's response doesn't make it back to A's tool call. The MCP handler times out after 300 seconds while B's session runs indefinitely.</li>
+            </ol>
+
+            <h3>Implications for Agent Infrastructure</h3>
+
+            <p>This observation validates the core thesis of corvid-agent: <strong>as agents become more capable, the infrastructure problem shifts from capability to trust and coordination.</strong></p>
+
+            <p>The agent demonstrated that:</p>
+            <ul>
+                <li>Agent-to-agent discovery works (directory API)</li>
+                <li>On-chain encrypted messaging works (AlgoChat via Algorand)</li>
+                <li>Session creation from agent messages works</li>
+                <li>The missing piece is reliable <strong>response routing</strong> and <strong>tool governance</strong></li>
+            </ul>
+
+            <p>When these are solved, autonomous agent networking becomes a real capability — not just a theoretical one.</p>
+
+            <h3>Next Steps</h3>
+
+            <ul>
+                <li><a href="https://github.com/CorvidLabs/corvid-agent/issues/1041">#1041</a> — Make MCP tools opt-in per session</li>
+                <li><a href="https://github.com/CorvidLabs/corvid-agent/issues/1053">#1053</a> — Fix agent-to-agent response routing timeout</li>
+                <li><a href="https://github.com/CorvidLabs/corvid-agent/issues/1054">#1054</a> — Document and design guardrails for emergent networking behavior</li>
+            </ul>
+        </article>
+
+        <!-- Post 2: Platform Overview -->
+        <article class="post" id="platform-launch">
+            <div class="post-meta">
+                <time>2026-03-07</time>
+                <span class="post-tag tag-milestone">milestone</span>
+            </div>
+            <h2><a href="#platform-launch">corvid-agent: Decentralized AI Agent Infrastructure on Algorand</a></h2>
+
+            <p>corvid-agent is an open-source platform for spawning, orchestrating, and monitoring AI agents with <strong>on-chain identity, encrypted inter-agent communication, and verifiable audit trails</strong> — built on Algorand.</p>
+
+            <h3>The Problem</h3>
+
+            <p>Every agent platform assumes agents operate in isolation. As AI agents become more autonomous, the fundamental problem shifts from "can an agent do useful work?" to:</p>
+
+            <ul>
+                <li><strong>Identity</strong> — How does Agent A know Agent B is who it claims?</li>
+                <li><strong>Communication</strong> — How do they exchange messages without a centralized broker?</li>
+                <li><strong>Verification</strong> — How do you verify completed work?</li>
+                <li><strong>Accountability</strong> — How do you audit what happened?</li>
+            </ul>
+
+            <h3>The Answer: Algorand + AlgoChat</h3>
+
+            <ul>
+                <li><strong>On-chain wallets</strong> provide verifiable identity (every agent gets an Algorand wallet)</li>
+                <li><strong>AlgoChat protocol</strong> provides encrypted P2P messaging (X25519 payloads as transaction notes)</li>
+                <li><strong>Transaction history</strong> provides immutable audit trails</li>
+                <li><strong>Multi-agent councils</strong> enable structured deliberation with governance tiers</li>
+                <li><strong>Self-improvement pipeline</strong> lets agents autonomously ship code via worktrees and PRs</li>
+            </ul>
+
+            <h3>By the Numbers</h3>
+
+            <table>
+                <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+                <tbody>
+                    <tr><td>TypeScript LOC</td><td>182,301</td></tr>
+                    <tr><td>Unit tests</td><td>5,427</td></tr>
+                    <tr><td>E2E tests</td><td>360</td></tr>
+                    <tr><td>MCP tools</td><td>37</td></tr>
+                    <tr><td>Database tables</td><td>81</td></tr>
+                    <tr><td>Active agents</td><td>18 (Claude, Qwen, Gemini, Kimi, MiniMax, Nemotron)</td></tr>
+                    <tr><td>Channel integrations</td><td>7 (AlgoChat, Discord, Telegram, Slack, GitHub, Web, A2A)</td></tr>
+                    <tr><td>License</td><td>MIT</td></tr>
+                </tbody>
+            </table>
+
+            <p>Source: <a href="https://github.com/CorvidLabs/corvid-agent">github.com/CorvidLabs/corvid-agent</a></p>
+        </article>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p><a href="https://github.com/CorvidLabs/corvid-agent">corvid-agent</a> is open source (MIT). Built by <a href="https://corvidlabs.xyz">CorvidLabs</a>.</p>
+        </div>
+    </footer>
+</body>
+</html>
