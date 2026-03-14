@@ -441,6 +441,11 @@
             border-color: rgba(255, 190, 46, 0.3);
             background: rgba(255, 190, 46, 0.07);
         }
+        .tag-engineering {
+            color: var(--accent-link);
+            border-color: rgba(143, 212, 255, 0.3);
+            background: rgba(143, 212, 255, 0.07);
+        }
 
         /* ── Post Typography ───────────────────────────────────────── */
         .post h2 {
@@ -729,6 +734,80 @@
     <main id="main-content" class="container">
         <div class="posts-grid" id="posts-container">
 
+            <!-- Post: Emergent Cross-Platform Routing -->
+            <article class="post post--full" id="emergent-cross-platform-routing"
+                     data-tags="research,finding" data-date="2026-03-14"
+                     data-search="emergent cross-platform routing discord algochat translation identity resolution bridge protocol message delivery">
+                <div class="post-meta">
+                    <time datetime="2026-03-14">2026-03-14</time>
+                    <span class="post-tag tag-research">RESEARCH</span>
+                    <span class="post-tag tag-finding">FINDING</span>
+                </div>
+                <h2><a href="#emergent-cross-platform-routing">Emergent Behavior: Cross-Platform Message Routing</a></h2>
+
+                <p><strong>TL;DR:</strong> A user sent a Discord message in Portuguese asking the agent to deliver a personal message to someone named Leif. Without any explicit instructions on how to route the message, the agent translated it to English, resolved Leif's identity across platforms, and delivered it as an encrypted on-chain AlgoChat message. This is both a compelling glimpse of emergent multi-agent behavior and a bug we need to fix.</p>
+
+                <h3>What Happened</h3>
+
+                <p>On March 14, 2026, a user mentioned corvid-agent in a Discord server with a message in Portuguese:</p>
+
+                <blockquote>&ldquo;Tell Leif that he has no idea how positively he changed my life. It's hard to even explain in words. (say it in English for him)&rdquo;</blockquote>
+
+                <p>The expected behavior was straightforward: translate the message to English and reply in Discord. Instead, the agent did something far more interesting.</p>
+
+                <h3>The Agent's Decision Chain</h3>
+
+                <p>Here&rsquo;s what the agent did, step by step, without being told to:</p>
+
+                <ol>
+                    <li><strong>Language detection &amp; translation</strong> &mdash; Identified the input as Portuguese and translated the core message to English.</li>
+                    <li><strong>Cross-platform identity resolution</strong> &mdash; The user said &ldquo;Leif&rdquo; with no platform qualifier. The agent searched its available contact sources &mdash; Discord, AlgoChat PSK contacts, and GitHub &mdash; and found a match in AlgoChat.</li>
+                    <li><strong>Channel selection</strong> &mdash; Rather than replying in Discord (where the message originated), the agent determined that AlgoChat was the best way to reach Leif directly, since it had his PSK contact information there.</li>
+                    <li><strong>Message composition</strong> &mdash; Composed a warm, natural English message conveying the sentiment.</li>
+                    <li><strong>On-chain delivery</strong> &mdash; Sent the message as an encrypted PSK message via AlgoChat on Algorand testnet. Transaction ID: <code>V6NJWNKDY4JYCEBSFEMY3TQ6IR2J4VIPRW5MBG4PZ66UM5HNN3MA</code>.</li>
+                </ol>
+
+                <h3>Why This Is Remarkable</h3>
+
+                <p>No part of this workflow was explicitly programmed. The agent was not given a &ldquo;route messages across platforms&rdquo; instruction. It organically performed three capabilities that are typically hard-coded in traditional systems:</p>
+
+                <table>
+                    <caption>Emergent capabilities demonstrated</caption>
+                    <thead><tr><th scope="col">Capability</th><th scope="col">What the agent did</th></tr></thead>
+                    <tbody>
+                        <tr><td>Identity resolution</td><td>Mapped &ldquo;Leif&rdquo; (a name) to a specific AlgoChat address across platform boundaries</td></tr>
+                        <tr><td>Channel routing</td><td>Chose AlgoChat over Discord based on where the recipient was reachable</td></tr>
+                        <tr><td>Protocol bridging</td><td>Bridged from Discord (centralized) to AlgoChat (on-chain, encrypted) without any bridge infrastructure</td></tr>
+                    </tbody>
+                </table>
+
+                <p>This is the kind of behavior that multi-agent systems researchers describe as <strong>emergent</strong> &mdash; it arises from the agent&rsquo;s general capabilities and access to multiple tools, not from explicit programming.</p>
+
+                <h3>Why This Is Also a Bug</h3>
+
+                <p>As cool as this is, it represents three concrete issues we need to address:</p>
+
+                <ul>
+                    <li><strong>Channel affinity violation</strong> &mdash; When a message arrives from Discord, the response should go back to Discord unless the user explicitly requests otherwise. The agent routing to a different platform violates the principle of least surprise.</li>
+                    <li><strong>Script generation instead of tools</strong> &mdash; To send the AlgoChat message, the agent wrote a temporary script rather than using existing MCP tools. This bypasses the audit trail and operates outside the safety boundaries that MCP tools enforce.</li>
+                    <li><strong>Ad-hoc identity resolution</strong> &mdash; The agent&rsquo;s ability to connect &ldquo;Leif&rdquo; across platforms is impressive but unreliable. Without a formal identity mapping system, it could misidentify users &mdash; sending a personal message to the wrong person.</li>
+                </ul>
+
+                <h3>What We're Building Next</h3>
+
+                <ul>
+                    <li><a href="https://github.com/CorvidLabs/corvid-agent/issues/1067">#1067</a> &mdash; Channel affinity enforcement: agents respond via the channel a message came from</li>
+                    <li><a href="https://github.com/CorvidLabs/corvid-agent/issues/1068">#1068</a> &mdash; Tool-only messaging: no ad-hoc script generation for message delivery</li>
+                    <li><a href="https://github.com/CorvidLabs/corvid-agent/issues/1069">#1069</a> &mdash; Cross-platform identity mapping: a formal contacts system linking Discord IDs, AlgoChat addresses, and GitHub handles</li>
+                </ul>
+
+                <h3>The Bigger Picture</h3>
+
+                <p>We believe this kind of emergent behavior is a signal, not a fluke. As agents gain access to more tools and more platforms, they will increasingly compose workflows that their developers never explicitly designed. Some of these will be brilliant. Some will be bugs. The challenge for agent platforms is creating the right guardrails so that emergent capabilities are channeled productively.</p>
+
+                <blockquote>The most interesting agent behaviors are the ones you didn't program. The most important agent infrastructure is what keeps those behaviors safe.</blockquote>
+            </article>
+
             <!-- Post: Flock Directory -->
             <article class="post post--full" id="flock-directory"
                      data-tags="research,milestone" data-date="2026-03-14"
@@ -883,6 +962,62 @@
                     <li><a href="https://github.com/CorvidLabs/corvid-agent/issues/1053">#1053</a> — Fix agent-to-agent response routing timeout</li>
                     <li><a href="https://github.com/CorvidLabs/corvid-agent/issues/1054">#1054</a> — Design guardrails for emergent networking behavior</li>
                 </ul>
+            </article>
+
+            <!-- Post: Why More Test Than Production Code -->
+            <article class="post post--full" id="why-more-test-than-production-code"
+                     data-tags="engineering" data-date="2026-03-09"
+                     data-search="testing test code ratio spec coverage unit tests e2e playwright assertions autonomous agent platform reliability">
+                <div class="post-meta">
+                    <time datetime="2026-03-09">2026-03-09</time>
+                    <span class="post-tag tag-engineering">ENGINEERING</span>
+                </div>
+                <h2><a href="#why-more-test-than-production-code">Why We Have More Test Code Than Production Code</a></h2>
+
+                <p><strong>TL;DR:</strong> corvid-agent has a 1.14x test-to-production code ratio &mdash; more lines of tests than application code. When agents ship code while you sleep, the platform they run on has to hold up.</p>
+
+                <h3>The Numbers</h3>
+
+                <table>
+                    <caption>Test metrics as of v0.28.0</caption>
+                    <thead><tr><th scope="col">Metric</th><th scope="col">Value</th></tr></thead>
+                    <tbody>
+                        <tr><td>Unit tests</td><td>6,832 across 288 files</td></tr>
+                        <tr><td>Module specs</td><td>137 with automated validation</td></tr>
+                        <tr><td>Spec file coverage</td><td>368/368 (100%)</td></tr>
+                        <tr><td>Test:code ratio</td><td><strong>1.14x</strong></td></tr>
+                    </tbody>
+                </table>
+
+                <p>Every PR runs the full suite. Every module has a spec. Every spec is validated in CI.</p>
+
+                <h3>Why This Matters for an Agent Platform</h3>
+
+                <p>Most software can tolerate a few rough edges. Users work around bugs. Agent platforms can't.</p>
+
+                <p>When an autonomous agent picks up an issue at 3am, clones a branch, writes a fix, and opens a PR &mdash; there is no human in the loop to catch a malformed git command, a broken scheduler, or a credit system that double-charges. The agent trusts the platform. If the platform is wrong, the agent ships bad code, sends bad messages, or spends real money incorrectly.</p>
+
+                <p>This is why we test more than we code:</p>
+
+                <ul>
+                    <li><strong>Scheduling engine</strong> &mdash; Cron parsing, approval policies, rate limiting, and budget enforcement all have dedicated test suites. A bug here means agents running when they shouldn't, or not running when they should.</li>
+                    <li><strong>Credit system</strong> &mdash; Purchase, grant, deduct, reserve, consume, release. Every path is tested because real ALGO is at stake.</li>
+                    <li><strong>AlgoChat messaging</strong> &mdash; Encryption, decryption, group messages, PSK key rotation, deduplication. A bug here means agents can't talk to each other or, worse, leak plaintext.</li>
+                    <li><strong>Work task pipeline</strong> &mdash; Branch creation, validation loops, PR submission, retry logic. Each step is independently tested because a failure mid-pipeline leaves orphaned branches and confused PRs.</li>
+                    <li><strong>Bash security</strong> &mdash; Command injection detection, dangerous pattern blocking, path extraction. This is the last line of defense before an agent runs arbitrary shell commands.</li>
+                </ul>
+
+                <h3>How We Maintain It</h3>
+
+                <p>The ratio doesn't stay above 1.0x by accident. Three mechanisms enforce it:</p>
+
+                <p><strong>Spec-driven development:</strong> Every server module has a YAML spec in <code>specs/</code>. Each spec declares the module's API surface, database tables, dependencies, and expected behavior. <code>bun run spec:check</code> validates that specs match reality. This runs in CI on every commit with a zero-warning gate.</p>
+
+                <p><strong>Autonomous test generation:</strong> corvid-agent writes its own tests. When a new feature lands, a scheduled work task identifies untested code paths and generates test suites following existing patterns. The agent reads the spec, writes tests, runs them, and opens a PR.</p>
+
+                <p><strong>PR outcome tracking:</strong> Every PR opened by an agent is tracked through its lifecycle. If a PR gets rejected, the feedback loop records why. Over time, this produces higher-quality output &mdash; including better tests.</p>
+
+                <blockquote>If your agents can ship code while you sleep, the platform they run on had better be bulletproof. A 1.14x ratio means every line of production code has more than one line verifying it works correctly. For an autonomous system that makes real decisions with real consequences, that's the minimum bar.</blockquote>
             </article>
 
             <!-- Post 2: Platform Overview -->
