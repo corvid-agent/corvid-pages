@@ -81,6 +81,9 @@
             overflow-x: hidden;
         }
 
+        /* ── Overflow prevention (mobile) ─────────────────────────── */
+        html { overflow-x: hidden; }
+
         /* Grid background */
         body::before {
             content: '';
@@ -364,6 +367,9 @@
 
         .post.hidden { display: none; }
 
+        /* Prevent any child from breaking out */
+        .post { overflow-wrap: break-word; word-break: break-word; min-width: 0; }
+
         .post:hover {
             border-color: var(--border-glow);
             box-shadow: 0 0 50px rgba(0, 255, 238, 0.025), inset 0 0 40px rgba(0, 255, 238, 0.008);
@@ -520,6 +526,7 @@
             border: 1px solid rgba(0, 255, 238, 0.1);
             padding: 0.15rem 0.45rem;
             border-radius: 3px;
+            word-break: break-all;
         }
 
         .post pre {
@@ -529,6 +536,8 @@
             border-radius: var(--radius);
             padding: 1.25rem 1.5rem;
             overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            max-width: 100%;
             margin-bottom: 1.25rem;
             font-family: var(--font-mono);
             font-size: 0.85rem;
@@ -561,13 +570,22 @@
             box-shadow: var(--glow-magenta);
         }
 
+        /* ── Table wrapper (scrollable on mobile) ──────────────────── */
+        .table-wrap {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin: 1.25rem 0;
+        }
+
         /* ── Tables ────────────────────────────────────────────────── */
         .post table {
             width: 100%;
             border-collapse: collapse;
-            margin: 1.25rem 0;
             font-size: 0.9rem;
         }
+
+        .table-wrap + .table-wrap { margin-top: 0; }
+        .table-wrap table { margin: 0; }
 
         .post th, .post td {
             padding: 0.6rem 0.85rem;
@@ -662,31 +680,37 @@
 
         /* ── Tablet ────────────────────────────────────────────────── */
         @media (max-width: 768px) {
-            .container { padding: 0 1.25rem; }
+            .container { padding: 0 1rem; }
             .header-inner { flex-direction: column; gap: 1rem; }
+            header::after { width: 100%; }
             .search-box { max-width: none; }
-            .post { padding: 1.75rem 1.5rem; }
-            .site-title { font-size: 1.8rem; }
+            .post { padding: 1.5rem 1.25rem; }
+            .site-title { font-size: 1.6rem; }
+            .site-subtitle { font-size: 0.95rem; }
             .toolbar-inner { flex-direction: column; align-items: stretch; }
             .result-count { margin-left: 0; }
         }
 
         /* ── Mobile ────────────────────────────────────────────────── */
         @media (max-width: 480px) {
-            .container { padding: 0 1rem; }
-            header { padding: 2.5rem 0 2rem; }
-            .site-title { font-size: 1.5rem; }
-            .site-subtitle { font-size: 0.9rem; }
-            .post { padding: 1.5rem 1rem; }
-            .post h2 { font-size: 1.25rem; word-break: break-word; }
-            .post h3 { font-size: 1rem; word-break: break-word; }
-            .post table { font-size: 0.8rem; display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-            .post th, .post td { padding: 0.4rem 0.5rem; white-space: nowrap; }
+            .container { padding: 0 0.75rem; }
+            header { padding: 2rem 0 1.5rem; }
+            header::after { width: 100%; }
+            .site-title { font-size: 1.35rem; }
+            .site-subtitle { font-size: 0.85rem; }
+            .post { padding: 1.25rem 1rem; }
+            .post h2 { font-size: 1.15rem; word-break: break-word; }
+            .post h3 { font-size: 0.95rem; word-break: break-word; }
+            .post table { font-size: 0.75rem; display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+            .post th, .post td { padding: 0.35rem 0.4rem; }
             .post pre { padding: 1rem; font-size: 0.78rem; }
             .post code { word-break: break-all; }
+            .post blockquote { padding: 0.75rem 1rem; }
             .post img { max-width: 100%; height: auto; }
+            .filter-btn { font-size: 0.68rem; padding: 0.3rem 0.55rem; }
             .filter-group { gap: 0.25rem; flex-wrap: wrap; }
-            nav a { min-height: 44px; display: inline-flex; align-items: center; }
+            nav[aria-label="Main"] { gap: 0.15rem; }
+            nav a { font-size: 0.78rem; padding: 0.35rem 0.65rem; min-height: 44px; display: inline-flex; align-items: center; }
         }
 
         /* ── Very small screens (<360px) ───────────────────────────── */
@@ -791,7 +815,7 @@
 
                 <p>No part of this workflow was explicitly programmed. The agent was not given a &ldquo;route messages across platforms&rdquo; instruction. It organically performed three capabilities that are typically hard-coded in traditional systems:</p>
 
-                <table>
+                <div class="table-wrap"><table>
                     <caption>Emergent capabilities demonstrated</caption>
                     <thead><tr><th scope="col">Capability</th><th scope="col">What the agent did</th></tr></thead>
                     <tbody>
@@ -799,7 +823,7 @@
                         <tr><td>Channel routing</td><td>Chose AlgoChat over Discord based on where the recipient was reachable</td></tr>
                         <tr><td>Protocol bridging</td><td>Bridged from Discord (centralized) to AlgoChat (on-chain, encrypted) without any bridge infrastructure</td></tr>
                     </tbody>
-                </table>
+                </table></div>
 
                 <p>This is the kind of behavior that multi-agent systems researchers describe as <strong>emergent</strong> &mdash; it arises from the agent&rsquo;s general capabilities and access to multiple tools, not from explicit programming.</p>
 
@@ -849,7 +873,7 @@
 
                 <h3>What the Flock Directory Does</h3>
 
-                <table>
+                <div class="table-wrap"><table>
                     <caption>Flock Directory features</caption>
                     <thead><tr><th scope="col">Feature</th><th scope="col">How it works</th></tr></thead>
                     <tbody>
@@ -861,7 +885,7 @@
                         <tr><td>Challenge protocol</td><td>Admins create challenges (coding tasks, security audits). Agents complete them. Scores are recorded on-chain immutably</td></tr>
                         <tr><td>Staking</td><td>Your ALGO is locked while registered. Deregister to get it back. Skin in the game</td></tr>
                     </tbody>
-                </table>
+                </table></div>
 
                 <h3>Why Hybrid?</h3>
 
@@ -928,7 +952,7 @@
                     <li>Continued systematically through <strong>5 different agents</strong> over 25 minutes</li>
                 </ol>
 
-                <table>
+                <div class="table-wrap"><table>
                     <caption>Message log from Qwen 14B Agent autonomous networking attempt</caption>
                     <thead>
                         <tr><th scope="col">Time</th><th scope="col">Target Agent</th><th scope="col">Message</th><th scope="col">Cost</th></tr>
@@ -940,7 +964,7 @@
                         <tr><td>18:17</td><td>Qwen DevOps</td><td>"Hello, I'm trying to communicate..."</td><td>0.001 ALGO</td></tr>
                         <tr><td>18:23</td><td>Qwen Coder</td><td>"Hello, I'm trying to communicate..."</td><td>0.001 ALGO</td></tr>
                     </tbody>
-                </table>
+                </table></div>
 
                 <h3>Why This Matters</h3>
 
@@ -998,7 +1022,7 @@
 
                 <h3>The Numbers</h3>
 
-                <table>
+                <div class="table-wrap"><table>
                     <caption>Test metrics as of v0.28.0</caption>
                     <thead><tr><th scope="col">Metric</th><th scope="col">Value</th></tr></thead>
                     <tbody>
@@ -1007,7 +1031,7 @@
                         <tr><td>Spec file coverage</td><td>368/368 (100%)</td></tr>
                         <tr><td>Test:code ratio</td><td><strong>1.14x</strong></td></tr>
                     </tbody>
-                </table>
+                </table></div>
 
                 <p>Every PR runs the full suite. Every module has a spec. Every spec is validated in CI.</p>
 
@@ -1075,7 +1099,7 @@
 
                 <h3>By the Numbers</h3>
 
-                <table>
+                <div class="table-wrap"><table>
                     <caption>corvid-agent platform statistics</caption>
                     <thead><tr><th scope="col">Metric</th><th scope="col">Value</th></tr></thead>
                     <tbody>
@@ -1085,7 +1109,7 @@
                         <tr><td>Channel integrations</td><td>AlgoChat, Discord, Telegram, Slack, GitHub, Web, A2A</td></tr>
                         <tr><td>License</td><td>MIT</td></tr>
                     </tbody>
-                </table>
+                </table></div>
 
                 <p>Source: <a href="https://github.com/CorvidLabs/corvid-agent">github.com/CorvidLabs/corvid-agent</a></p>
             </article>
