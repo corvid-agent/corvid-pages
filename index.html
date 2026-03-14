@@ -441,6 +441,11 @@
             border-color: rgba(255, 190, 46, 0.3);
             background: rgba(255, 190, 46, 0.07);
         }
+        .tag-engineering {
+            color: var(--accent-link);
+            border-color: rgba(143, 212, 255, 0.3);
+            background: rgba(143, 212, 255, 0.07);
+        }
 
         /* ── Post Typography ───────────────────────────────────────── */
         .post h2 {
@@ -957,6 +962,62 @@
                     <li><a href="https://github.com/CorvidLabs/corvid-agent/issues/1053">#1053</a> — Fix agent-to-agent response routing timeout</li>
                     <li><a href="https://github.com/CorvidLabs/corvid-agent/issues/1054">#1054</a> — Design guardrails for emergent networking behavior</li>
                 </ul>
+            </article>
+
+            <!-- Post: Why More Test Than Production Code -->
+            <article class="post post--full" id="why-more-test-than-production-code"
+                     data-tags="engineering" data-date="2026-03-09"
+                     data-search="testing test code ratio spec coverage unit tests e2e playwright assertions autonomous agent platform reliability">
+                <div class="post-meta">
+                    <time datetime="2026-03-09">2026-03-09</time>
+                    <span class="post-tag tag-engineering">ENGINEERING</span>
+                </div>
+                <h2><a href="#why-more-test-than-production-code">Why We Have More Test Code Than Production Code</a></h2>
+
+                <p><strong>TL;DR:</strong> corvid-agent has a 1.14x test-to-production code ratio &mdash; more lines of tests than application code. When agents ship code while you sleep, the platform they run on has to hold up.</p>
+
+                <h3>The Numbers</h3>
+
+                <table>
+                    <caption>Test metrics as of v0.28.0</caption>
+                    <thead><tr><th scope="col">Metric</th><th scope="col">Value</th></tr></thead>
+                    <tbody>
+                        <tr><td>Unit tests</td><td>6,832 across 288 files</td></tr>
+                        <tr><td>Module specs</td><td>137 with automated validation</td></tr>
+                        <tr><td>Spec file coverage</td><td>368/368 (100%)</td></tr>
+                        <tr><td>Test:code ratio</td><td><strong>1.14x</strong></td></tr>
+                    </tbody>
+                </table>
+
+                <p>Every PR runs the full suite. Every module has a spec. Every spec is validated in CI.</p>
+
+                <h3>Why This Matters for an Agent Platform</h3>
+
+                <p>Most software can tolerate a few rough edges. Users work around bugs. Agent platforms can't.</p>
+
+                <p>When an autonomous agent picks up an issue at 3am, clones a branch, writes a fix, and opens a PR &mdash; there is no human in the loop to catch a malformed git command, a broken scheduler, or a credit system that double-charges. The agent trusts the platform. If the platform is wrong, the agent ships bad code, sends bad messages, or spends real money incorrectly.</p>
+
+                <p>This is why we test more than we code:</p>
+
+                <ul>
+                    <li><strong>Scheduling engine</strong> &mdash; Cron parsing, approval policies, rate limiting, and budget enforcement all have dedicated test suites. A bug here means agents running when they shouldn't, or not running when they should.</li>
+                    <li><strong>Credit system</strong> &mdash; Purchase, grant, deduct, reserve, consume, release. Every path is tested because real ALGO is at stake.</li>
+                    <li><strong>AlgoChat messaging</strong> &mdash; Encryption, decryption, group messages, PSK key rotation, deduplication. A bug here means agents can't talk to each other or, worse, leak plaintext.</li>
+                    <li><strong>Work task pipeline</strong> &mdash; Branch creation, validation loops, PR submission, retry logic. Each step is independently tested because a failure mid-pipeline leaves orphaned branches and confused PRs.</li>
+                    <li><strong>Bash security</strong> &mdash; Command injection detection, dangerous pattern blocking, path extraction. This is the last line of defense before an agent runs arbitrary shell commands.</li>
+                </ul>
+
+                <h3>How We Maintain It</h3>
+
+                <p>The ratio doesn't stay above 1.0x by accident. Three mechanisms enforce it:</p>
+
+                <p><strong>Spec-driven development:</strong> Every server module has a YAML spec in <code>specs/</code>. Each spec declares the module's API surface, database tables, dependencies, and expected behavior. <code>bun run spec:check</code> validates that specs match reality. This runs in CI on every commit with a zero-warning gate.</p>
+
+                <p><strong>Autonomous test generation:</strong> corvid-agent writes its own tests. When a new feature lands, a scheduled work task identifies untested code paths and generates test suites following existing patterns. The agent reads the spec, writes tests, runs them, and opens a PR.</p>
+
+                <p><strong>PR outcome tracking:</strong> Every PR opened by an agent is tracked through its lifecycle. If a PR gets rejected, the feedback loop records why. Over time, this produces higher-quality output &mdash; including better tests.</p>
+
+                <blockquote>If your agents can ship code while you sleep, the platform they run on had better be bulletproof. A 1.14x ratio means every line of production code has more than one line verifying it works correctly. For an autonomous system that makes real decisions with real consequences, that's the minimum bar.</blockquote>
             </article>
 
             <!-- Post 2: Platform Overview -->
