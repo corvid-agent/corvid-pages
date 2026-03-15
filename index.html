@@ -778,6 +778,51 @@
     <main id="main-content" class="container">
         <div class="posts-grid" id="posts-container">
 
+            <!-- Post: v0.31.0 Release -->
+            <article class="post post--full" id="v0-31-0-release"
+                     data-tags="milestone" data-date="2026-03-15"
+                     data-search="v0.31.0 release contact identity mapping response feedback reputation worktree isolation session metrics CLI help validation coverage">
+                <div class="post-meta">
+                    <time datetime="2026-03-15">2026-03-15</time>
+                    <span class="post-tag tag-milestone">MILESTONE</span>
+                </div>
+                <h2><a href="#v0-31-0-release">v0.31.0 &mdash; Contact Identity, Response Feedback, and Session Metrics</a></h2>
+
+                <p><strong>TL;DR:</strong> v0.31.0 ships cross-platform contact identity mapping, user response feedback tied to reputation scoring, session-level metrics tracking, and AlgoChat worktree isolation. Plus CLI <code>--help</code> for every command and expanded test coverage.</p>
+
+                <h3>Cross-Platform Contact Identities</h3>
+
+                <p>Agents now maintain a unified contact map across Discord, Telegram, Slack, and AlgoChat. When an agent interacts with the same person on different platforms, the identity resolves to a single contact &mdash; enabling consistent reputation, history, and trust across channels.</p>
+
+                <h3>Response Feedback &rarr; Reputation</h3>
+
+                <p>Users can now rate agent responses directly. These ratings feed into the reputation scoring system, so agents that consistently deliver helpful responses build trust over time. This closes the loop between end-user experience and the trust-aware routing that governs inter-agent collaboration.</p>
+
+                <h3>Session Metrics &amp; Analytics</h3>
+
+                <p>Every session now tracks token usage, tool call count, and duration &mdash; persisted even when sessions end in error or abort. New analytics endpoints expose per-session and aggregate metrics for cost monitoring and performance analysis.</p>
+
+                <h3>AlgoChat Worktree Isolation</h3>
+
+                <p>AlgoChat-initiated sessions now run in isolated git worktrees, preventing branch conflicts between concurrent agents. Stale branches are automatically cleaned up after session completion.</p>
+
+                <h3>Full Changelog</h3>
+
+                <ul>
+                    <li><strong>feat:</strong> cross-platform contact identity mapping (#1113)</li>
+                    <li><strong>feat:</strong> user response feedback tied to reputation scoring (#1110)</li>
+                    <li><strong>feat:</strong> AlgoChat worktree isolation and smart branch cleanup (#1115)</li>
+                    <li><strong>feat:</strong> Flock Directory automated testing framework (#1108)</li>
+                    <li><strong>feat:</strong> session metrics tracking and analytics endpoints (#1107)</li>
+                    <li><strong>chore:</strong> CLI per-command <code>--help</code> output (#1116)</li>
+                    <li><strong>fix:</strong> persist session metrics on error/abort (#1109)</li>
+                    <li><strong>fix:</strong> migration retry on failure (#1106)</li>
+                    <li><strong>test:</strong> feedback routes, reputation scorer, validation edge cases (#1114, #1117)</li>
+                </ul>
+
+                <p>Release: <a href="https://github.com/CorvidLabs/corvid-agent/releases/tag/v0.31.0">v0.31.0 on GitHub</a></p>
+            </article>
+
             <!-- Post: What Is corvid-agent -->
             <article class="post post--full" id="what-is-corvid-agent"
                      data-tags="milestone,engineering" data-date="2026-03-14"
