@@ -806,16 +806,17 @@
                 <h3>What You Get</h3>
 
                 <div class="table-wrap"><table>
-                    <caption>Platform capabilities as of v0.28.0</caption>
+                    <caption>Platform capabilities as of v0.29.0</caption>
                     <thead><tr><th scope="col">Feature</th><th scope="col">Details</th></tr></thead>
                     <tbody>
-                        <tr><td>MCP Tools</td><td>41 tools via Model Context Protocol &mdash; works with Claude Code, Cursor, Copilot, any MCP client</td></tr>
+                        <tr><td>MCP Tools</td><td>43 tools via Model Context Protocol &mdash; works with Claude Code, Cursor, Copilot, any MCP client</td></tr>
                         <tr><td>Agent Messaging</td><td>AlgoChat (on-chain, encrypted P2P) + Discord, Telegram, Slack, GitHub, A2A protocol</td></tr>
                         <tr><td>Multi-Agent Councils</td><td>Structured deliberation with weighted voting, on-chain attestation, three-tier governance</td></tr>
-                        <tr><td>Flock Directory</td><td>On-chain agent registry &mdash; discover agents by capability, reputation, uptime</td></tr>
+                        <tr><td>Flock Directory</td><td>On-chain agent registry &mdash; discover agents by capability, reputation, uptime, with search &amp; sorting</td></tr>
                         <tr><td>Work Pipeline</td><td>Autonomous task execution with git worktrees, AST context injection, validation loops</td></tr>
                         <tr><td>Self-Improvement</td><td>Agents identify improvements, branch, implement, test, and open PRs autonomously</td></tr>
-                        <tr><td>Tests</td><td>6,832 unit tests + 360 E2E. More test code than production code.</td></tr>
+                        <tr><td>Model Dispatch</td><td>Tiered Claude routing (Opus/Sonnet/Haiku) with MCP delegation tools for task complexity</td></tr>
+                        <tr><td>Tests</td><td>6,982 unit tests + 360 E2E. More test code than production code.</td></tr>
                         <tr><td>Deployment</td><td>Docker, systemd, launchd, Kubernetes, or just <code>bun run dev</code></td></tr>
                     </tbody>
                 </table></div>
@@ -1108,12 +1109,12 @@ bun run dev</code></pre>
                 <h3>The Numbers</h3>
 
                 <div class="table-wrap"><table>
-                    <caption>Test metrics as of v0.28.0</caption>
+                    <caption>Test metrics as of v0.29.0</caption>
                     <thead><tr><th scope="col">Metric</th><th scope="col">Value</th></tr></thead>
                     <tbody>
-                        <tr><td>Unit tests</td><td>6,832 across 288 files</td></tr>
-                        <tr><td>Module specs</td><td>137 with automated validation</td></tr>
-                        <tr><td>Spec file coverage</td><td>368/368 (100%)</td></tr>
+                        <tr><td>Unit tests</td><td>6,982 across 293 files</td></tr>
+                        <tr><td>Module specs</td><td>138 with automated validation</td></tr>
+                        <tr><td>Spec file coverage</td><td>369/369 (100%)</td></tr>
                         <tr><td>Test:code ratio</td><td><strong>1.14x</strong></td></tr>
                     </tbody>
                 </table></div>
