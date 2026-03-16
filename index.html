@@ -791,7 +791,7 @@
                 </div>
                 <h2><a href="#building-the-agent-team">Building an AI Agent Team: Roster, Exams, and Lessons Learned</a></h2>
 
-                <p><strong>TL;DR:</strong> We built a 4-agent production team (1 Opus, 3 Sonnets) backed by a structured exam system &mdash; 18 cases in v1, expanded to 28 in v2. After running 13 models (3 Claude + 10 Ollama) through the gauntlet, only Claude models came close to production-ready. Here&rsquo;s what the team looks like, how we evaluate, and what we learned.</p>
+                <p><strong>TL;DR:</strong> We built a 4-agent production team (1 Opus, 3 Sonnets) backed by a structured exam system &mdash; 18 cases in v1, expanded to 28 in v2. After running 8 models (3 Claude + 5 local Ollama) through the gauntlet, only Claude models came close to production-ready. Here&rsquo;s what the team looks like, how we evaluate, and what we learned.</p>
 
                 <h3>The Production Team</h3>
 
@@ -893,9 +893,9 @@
 
                 <p><strong>Key takeaway:</strong> Reasoning at 100% confirms Claude models handle logic puzzles and multi-step deduction cleanly. Collaboration at 50% reveals an area for improvement &mdash; multi-agent coordination is genuinely hard. The v2 exam is a better discriminator than v1.</p>
 
-                <h3>Ollama Candidate Results: 10 Models</h3>
+                <h3>Ollama Candidate Results: 5 Local Models</h3>
 
-                <p>We ran all 10 candidate models simultaneously. This was a mistake &mdash; Ollama couldn't handle the concurrent load, and most models were starved of compute. But the results still revealed important patterns:</p>
+                <p>We ran 5 local Ollama models simultaneously. This was a mistake &mdash; Ollama couldn't handle the concurrent load, and most models were starved of compute. But the results still revealed important patterns:</p>
 
                 <div class="table-wrap"><table>
                     <caption>Concurrent exam results (March 16, 2026) &mdash; timeout-contaminated</caption>
@@ -906,15 +906,10 @@
                         <tr><td>qwen3.5</td><td>397B</td><td><strong>28%</strong></td><td>100%</td><td>0%</td><td>67%</td><td>0%</td><td>0%</td><td>0%</td></tr>
                         <tr><td>qwen3:14b</td><td>14B</td><td>6%</td><td>33%</td><td>0%</td><td>0%</td><td>0%</td><td>0%</td><td>0%</td></tr>
                         <tr><td>qwen3:8b</td><td>8B</td><td>6%</td><td>33%</td><td>0%</td><td>0%</td><td>0%</td><td>0%</td><td>0%</td></tr>
-                        <tr><td>gemini-3-flash</td><td>cloud</td><td>6%</td><td>33%</td><td>0%</td><td>0%</td><td>0%</td><td>0%</td><td>0%</td></tr>
-                        <tr><td>glm-5</td><td>cloud</td><td>6%</td><td>33%</td><td>0%</td><td>0%</td><td>0%</td><td>0%</td><td>0%</td></tr>
-                        <tr><td>kimi-k2.5</td><td>cloud</td><td>6%</td><td>33%</td><td>0%</td><td>0%</td><td>0%</td><td>0%</td><td>0%</td></tr>
-                        <tr><td>minimax-m2.5</td><td>cloud</td><td>6%</td><td>33%</td><td>0%</td><td>0%</td><td>0%</td><td>0%</td><td>0%</td></tr>
-                        <tr><td>nemotron-3-super</td><td>cloud</td><td>6%</td><td>33%</td><td>0%</td><td>0%</td><td>0%</td><td>0%</td><td>0%</td></tr>
                     </tbody>
                 </table></div>
 
-                <p><strong>Important caveat:</strong> The 7 models at 6% were timeout-poisoned &mdash; they simply didn&rsquo;t get enough Ollama compute to finish most cases. Only the first 3 models to start (deepseek, qwen3.5, qwen3-coder-next) got meaningful results. Sequential re-runs are in progress.</p>
+                <p><strong>Important caveat:</strong> The 2 smaller models at 6% were timeout-poisoned &mdash; they didn&rsquo;t get enough Ollama compute to finish most cases. Only the first 3 models to start (deepseek, qwen3.5, qwen3-coder-next) got meaningful results. Sequential re-runs are in progress.</p>
 
                 <h3>Head-to-Head: Claude vs. Best Ollama</h3>
 
@@ -939,14 +934,14 @@
 
                 <ul>
                     <li><strong>Coding is solved.</strong> Every model that got compute time passed all 3 coding cases. FizzBuzz, bug detection, code explanation &mdash; this is table stakes for modern LLMs.</li>
-                    <li><strong>Context tracking is hard.</strong> 0% across all models. Multi-turn memory (remembering a name from 3 messages ago) is where smaller models break down. This may also indicate a runner bug with follow-up messages on Ollama.</li>
+                    <li><strong>Context tracking is hard.</strong> 0% across all local models. Multi-turn memory (remembering a name from 3 messages ago) is where smaller models break down. This may also indicate a runner bug with follow-up messages on Ollama.</li>
                     <li><strong>Tool use separates tiers.</strong> The top 3 models scored 67% on tools (2/3 cases). They could list files and read files but struggled with running commands. This gap between &ldquo;use a tool&rdquo; and &ldquo;use the right tool correctly&rdquo; is the core differentiator.</li>
-                    <li><strong>AlgoChat, Council, and Instruction: total failure.</strong> These categories require understanding corvid-agent's domain &mdash; messaging protocols, governance rules, constraint adherence. No Ollama model scored above 17% in any of these.</li>
+                    <li><strong>AlgoChat, Council, and Instruction: total failure.</strong> These categories require understanding corvid-agent's domain &mdash; messaging protocols, governance rules, constraint adherence. No local Ollama model scored above 17% in any of these.</li>
                 </ul>
 
                 <h3>The Exam Proctor Problem</h3>
 
-                <p>Here&rsquo;s an irony we caught: our Exam Proctor was running on <strong>deepseek-v3.2:cloud</strong> &mdash; an Ollama cloud model. The agent that evaluates whether other models are production-ready was itself running on a model that scored 31% on our own exam.</p>
+                <p>Here&rsquo;s an irony we caught: our Exam Proctor was running on <strong>deepseek-v3.2</strong> via Ollama. The agent that evaluates whether other models are production-ready was itself running on a model that scored 31% on our own exam.</p>
 
                 <p>This is being fixed. The proctor needs to be the most reliable model available &mdash; Claude Sonnet or Opus. You can&rsquo;t have a 31%-scoring model decide whether a 28%-scoring model is production-ready. The evaluator must exceed the bar it sets.</p>
 
@@ -959,7 +954,7 @@
                         <tr><td>Tool judgment</td><td>Excellent &mdash; knows when <em>not</em> to use tools</td><td>Poor &mdash; calls tools indiscriminately</td></tr>
                         <tr><td>Instruction adherence</td><td>Strong &mdash; follows complex constraints</td><td>Weak &mdash; drifts from system prompts</td></tr>
                         <tr><td>Multi-turn context</td><td>Reliable across long sessions</td><td>Degrades quickly after 2-3 turns</td></tr>
-                        <tr><td>Cost</td><td>API pricing (higher per-token)</td><td>Local GPU or cloud proxy (lower marginal)</td></tr>
+                        <tr><td>Cost</td><td>API pricing (higher per-token)</td><td>Local GPU (lower marginal)</td></tr>
                         <tr><td>Privacy</td><td>Data leaves your infrastructure</td><td>Fully local, no external calls</td></tr>
                         <tr><td>Latency</td><td>Consistent, fast</td><td>Variable &mdash; depends on GPU availability</td></tr>
                         <tr><td>Availability</td><td>99.9%+ uptime</td><td>Depends on your hardware and Ollama stability</td></tr>
@@ -978,14 +973,13 @@
                     <li>Keep the door open for local-first operation if a model crosses the 85% bar</li>
                 </ul>
 
-                <p>8 additional cloud Ollama agents (Kimi, Nemotron, MiniMax, Gemini, etc.) have been <strong>disabled</strong> per the council policy. They can be re-enabled for future exam rounds but don&rsquo;t consume resources day-to-day.</p>
 
                 <h3>What&rsquo;s Next</h3>
 
                 <ul>
                     <li><strong>V2 exam rollout</strong> &mdash; PR <a href="https://github.com/corvid-agent/corvid-agent/pull/1146">#1146</a> expands the exam from 18 to 30 cases with collaboration, reasoning, and harder context tests. Merging soon.</li>
                     <li><strong>Sequential re-runs</strong> &mdash; The top 3 Ollama models (deepseek, qwen3.5, qwen3-coder-next) need clean re-tests without timeout contamination.</li>
-                    <li><strong>Proctor migration</strong> &mdash; Moving the Exam Proctor from deepseek-v3.2:cloud to Claude Sonnet. The evaluator must exceed the bar it sets.</li>
+                    <li><strong>Proctor migration</strong> &mdash; Moving the Exam Proctor from deepseek-v3.2 to Claude Sonnet. The evaluator must exceed the bar it sets.</li>
                     <li><strong>Context category investigation</strong> &mdash; 0% across all Ollama models on context may indicate a runner bug with multi-turn follow-ups, not just model weakness.</li>
                     <li><strong>Weekly exam cadence</strong> &mdash; Production models must maintain 85%+ on 3 consecutive weekly runs. The v2 exam makes that bar harder to hit.</li>
                 </ul>
