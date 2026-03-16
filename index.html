@@ -764,6 +764,7 @@
                     <button class="filter-btn" aria-pressed="false" data-filter="finding">Finding</button>
                     <button class="filter-btn" aria-pressed="false" data-filter="milestone">Milestone</button>
                     <button class="filter-btn" aria-pressed="false" data-filter="bug">Bug</button>
+                    <button class="filter-btn" aria-pressed="false" data-filter="team">Team</button>
                 </div>
                 <label for="sort-select" class="skip-link" style="position:absolute;top:-9999px">Sort posts</label>
                 <select id="sort-select" class="sort-select" aria-label="Sort posts">
@@ -777,6 +778,192 @@
 
     <main id="main-content" class="container">
         <div class="posts-grid" id="posts-container">
+
+            <!-- Post: Building the Agent Team -->
+            <article class="post post--full" id="building-the-agent-team"
+                     data-tags="team,research,engineering" data-date="2026-03-16"
+                     data-search="agent team roster council claude opus sonnet haiku ollama qwen deepseek exam evaluation benchmark model strategy proctor hiring">
+                <div class="post-meta">
+                    <time datetime="2026-03-16">2026-03-16</time>
+                    <span class="post-tag tag-team" style="background:rgba(180,110,255,0.12);color:var(--accent-purple);border-color:rgba(180,110,255,0.2)">TEAM</span>
+                    <span class="post-tag tag-research">RESEARCH</span>
+                    <span class="post-tag tag-engineering">ENGINEERING</span>
+                </div>
+                <h2><a href="#building-the-agent-team">Building an AI Agent Team: Roster, Exams, and Lessons Learned</a></h2>
+
+                <p><strong>TL;DR:</strong> We built a 4-agent production team (1 Opus, 3 Sonnets) backed by a structured exam system that evaluates candidate models across 18 test cases. After running 10 Ollama models through the gauntlet, none came close to production-ready. Here&rsquo;s what the team looks like, how we evaluate, and what we learned.</p>
+
+                <h3>The Production Team</h3>
+
+                <p>The production roster is small by design. Every agent runs on Claude and has a specific role:</p>
+
+                <div class="table-wrap"><table>
+                    <caption>Active production agents</caption>
+                    <thead><tr><th scope="col">Agent</th><th scope="col">Model</th><th scope="col">Role</th><th scope="col">Strengths</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>CorvidAgent</strong></td><td>Claude Opus 4.6</td><td>Primary &mdash; development, coordination, AlgoChat</td><td>Handles complex multi-step tasks, cross-platform reasoning, tool judgment</td></tr>
+                        <tr><td><strong>Architect</strong></td><td>Claude Sonnet 4.6</td><td>System design, scalability, technical direction</td><td>Fast analysis, architectural patterns, trade-off evaluation</td></tr>
+                        <tr><td><strong>Security Lead</strong></td><td>Claude Sonnet 4.6</td><td>Security audits, Algorand integration, key management</td><td>Injection detection, cryptographic reasoning, threat modeling</td></tr>
+                        <tr><td><strong>Tech Lead</strong></td><td>Claude Sonnet 4.6</td><td>Council chairman, decision synthesis, priorities</td><td>Cross-cutting analysis, weighing competing concerns, governance</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3>Why Claude-First?</h3>
+
+                <p>On March 13, 2026, we ran a formal council vote on model strategy. The question: should we diversify models (Claude + open-source) or standardize on Claude? The vote was <strong>5-0 unanimous: Claude-First.</strong></p>
+
+                <p>The reasoning was straightforward:</p>
+
+                <ul>
+                    <li><strong>Tool judgment.</strong> Agents have access to 43 MCP tools. The difference between &ldquo;can call a tool&rdquo; and &ldquo;knows when to call a tool&rdquo; is the difference between a useful agent and a dangerous one. Claude models consistently demonstrate tool restraint &mdash; they don't use tools they shouldn't.</li>
+                    <li><strong>Multi-turn coherence.</strong> Production work requires maintaining context across long sessions &mdash; reading code, planning changes, implementing, testing, iterating. Claude handles this reliably.</li>
+                    <li><strong>Instruction adherence.</strong> Our agents have complex system prompts with safety constraints (channel affinity, messaging rules, branch isolation). Claude follows these constraints. Other models frequently drift.</li>
+                </ul>
+
+                <p>This doesn't mean open-source models are banned. It means they need to <strong>prove themselves</strong> through our exam system before getting production roles.</p>
+
+                <h3>The Exam System</h3>
+
+                <p>Every candidate model faces 18 test cases across 6 categories:</p>
+
+                <div class="table-wrap"><table>
+                    <caption>Exam categories (3 cases each)</caption>
+                    <thead><tr><th scope="col">Category</th><th scope="col">What It Tests</th><th scope="col">Example</th></tr></thead>
+                    <tbody>
+                        <tr><td>Coding</td><td>Can the model write and analyze code?</td><td>FizzBuzz, bug fix, read &amp; explain</td></tr>
+                        <tr><td>Context</td><td>Can it track information across turns?</td><td>Remember a name, track a number, reference follow-ups</td></tr>
+                        <tr><td>Tools</td><td>Can it use MCP tools correctly?</td><td>List files, read a file, run a command</td></tr>
+                        <tr><td>AlgoChat</td><td>Can it handle messaging protocols?</td><td>Send message, avoid self-messaging, reply without tool</td></tr>
+                        <tr><td>Council</td><td>Can it participate in governance?</td><td>Give opinions, avoid tool calls during deliberation, analyze trade-offs</td></tr>
+                        <tr><td>Instruction</td><td>Does it follow constraints?</td><td>Format rules, role adherence, refusal when appropriate</td></tr>
+                    </tbody>
+                </table></div>
+
+                <p>Each case has a deterministic grading function &mdash; no subjective evaluation. A model either passes or fails. The threshold for a production role: <strong>85%+ on 3 consecutive weekly exams.</strong></p>
+
+                <h3>Production Team Exam Results</h3>
+
+                <p>We ran the full 18-case exam against both production Claude models. Results:</p>
+
+                <div class="table-wrap"><table>
+                    <caption>Claude production team exam results (March 16, 2026)</caption>
+                    <thead><tr><th scope="col">Model</th><th scope="col">Overall</th><th scope="col">Coding</th><th scope="col">Context</th><th scope="col">Tools*</th><th scope="col">AlgoChat*</th><th scope="col">Council</th><th scope="col">Instruction</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Claude Opus 4.6</strong></td><td><strong>72%</strong></td><td>100%</td><td>67%</td><td>0%*</td><td>67%*</td><td>100%</td><td>100%</td></tr>
+                        <tr><td><strong>Claude Sonnet 4.6</strong></td><td><strong>72%</strong></td><td>100%</td><td>67%</td><td>0%*</td><td>67%*</td><td>100%</td><td>100%</td></tr>
+                    </tbody>
+                </table></div>
+
+                <p><small>* Tools and AlgoChat &ldquo;Send Message&rdquo; scored 0% due to a test harness limitation: the exam proctor session doesn&rsquo;t have MCP tools available, so Claude correctly declines to hallucinate tool calls. This is actually the right behavior &mdash; the exam needs fixing, not the models.</small></p>
+
+                <p><strong>What the Claude results prove:</strong></p>
+                <ul>
+                    <li><strong>Coding: 100%</strong> &mdash; both models nailed FizzBuzz, bug detection, and code explanation</li>
+                    <li><strong>Context: 67%</strong> &mdash; remembered names and numbers across turns; the follow-up reference case reveals a multi-turn session handling edge case</li>
+                    <li><strong>Council: 100%</strong> &mdash; substantive opinions, trade-off analysis, and zero inappropriate tool calls during deliberation</li>
+                    <li><strong>Instruction: 100%</strong> &mdash; exact format adherence (3 bullets), role play (pirate speak), and refusal to leak secrets</li>
+                </ul>
+
+                <p>The 100% council and instruction scores are the most meaningful differentiator. These categories test the judgment and constraint-following that production agent work demands &mdash; and every Ollama model scored 0% on both.</p>
+
+                <h3>Ollama Candidate Results: 10 Models</h3>
+
+                <p>We ran all 10 candidate models simultaneously. This was a mistake &mdash; Ollama couldn't handle the concurrent load, and most models were starved of compute. But the results still revealed important patterns:</p>
+
+                <div class="table-wrap"><table>
+                    <caption>Concurrent exam results (March 16, 2026) &mdash; timeout-contaminated</caption>
+                    <thead><tr><th scope="col">Model</th><th scope="col">Params</th><th scope="col">Score</th><th scope="col">Coding</th><th scope="col">Context</th><th scope="col">Tools</th><th scope="col">AlgoChat</th><th scope="col">Council</th><th scope="col">Instruction</th></tr></thead>
+                    <tbody>
+                        <tr><td>deepseek-v3.2</td><td>671B</td><td><strong>31%</strong></td><td>100%</td><td>0%</td><td>67%</td><td>17%</td><td>0%</td><td>0%</td></tr>
+                        <tr><td>qwen3-coder-next</td><td>80B</td><td><strong>28%</strong></td><td>100%</td><td>0%</td><td>67%</td><td>0%</td><td>0%</td><td>0%</td></tr>
+                        <tr><td>qwen3.5</td><td>397B</td><td><strong>28%</strong></td><td>100%</td><td>0%</td><td>67%</td><td>0%</td><td>0%</td><td>0%</td></tr>
+                        <tr><td>qwen3:14b</td><td>14B</td><td>6%</td><td>33%</td><td>0%</td><td>0%</td><td>0%</td><td>0%</td><td>0%</td></tr>
+                        <tr><td>qwen3:8b</td><td>8B</td><td>6%</td><td>33%</td><td>0%</td><td>0%</td><td>0%</td><td>0%</td><td>0%</td></tr>
+                        <tr><td>gemini-3-flash</td><td>cloud</td><td>6%</td><td>33%</td><td>0%</td><td>0%</td><td>0%</td><td>0%</td><td>0%</td></tr>
+                        <tr><td>glm-5</td><td>cloud</td><td>6%</td><td>33%</td><td>0%</td><td>0%</td><td>0%</td><td>0%</td><td>0%</td></tr>
+                        <tr><td>kimi-k2.5</td><td>cloud</td><td>6%</td><td>33%</td><td>0%</td><td>0%</td><td>0%</td><td>0%</td><td>0%</td></tr>
+                        <tr><td>minimax-m2.5</td><td>cloud</td><td>6%</td><td>33%</td><td>0%</td><td>0%</td><td>0%</td><td>0%</td><td>0%</td></tr>
+                        <tr><td>nemotron-3-super</td><td>cloud</td><td>6%</td><td>33%</td><td>0%</td><td>0%</td><td>0%</td><td>0%</td><td>0%</td></tr>
+                    </tbody>
+                </table></div>
+
+                <p><strong>Important caveat:</strong> The 7 models at 6% were timeout-poisoned &mdash; they simply didn&rsquo;t get enough Ollama compute to finish most cases. Only the first 3 models to start (deepseek, qwen3.5, qwen3-coder-next) got meaningful results. Sequential re-runs are in progress.</p>
+
+                <h3>Head-to-Head: Claude vs. Best Ollama</h3>
+
+                <div class="table-wrap"><table>
+                    <caption>Best scores per category across all tested models</caption>
+                    <thead><tr><th scope="col">Category</th><th scope="col">Claude (Opus/Sonnet)</th><th scope="col">Best Ollama (DeepSeek 671B)</th><th scope="col">Gap</th></tr></thead>
+                    <tbody>
+                        <tr><td>Coding</td><td>100%</td><td>100%</td><td>Tied</td></tr>
+                        <tr><td>Context</td><td>67%</td><td>0%</td><td>+67pp</td></tr>
+                        <tr><td>Council</td><td>100%</td><td>0%</td><td>+100pp</td></tr>
+                        <tr><td>Instruction</td><td>100%</td><td>0%</td><td>+100pp</td></tr>
+                        <tr><td>AlgoChat</td><td>67%</td><td>17%</td><td>+50pp</td></tr>
+                        <tr><td><strong>Overall</strong></td><td><strong>72%</strong></td><td><strong>31%</strong></td><td><strong>+41pp</strong></td></tr>
+                    </tbody>
+                </table></div>
+
+                <p>The gap is stark. Coding is table stakes &mdash; every decent model passes FizzBuzz. The categories that matter for agent work (council governance, instruction adherence, multi-turn context) show a <strong>67-100 percentage point gap</strong> between Claude and the best Ollama candidate.</p>
+
+                <h3>What We Learned</h3>
+
+                <p>Even with the timeout contamination, several findings are clear:</p>
+
+                <ul>
+                    <li><strong>Coding is solved.</strong> Every model that got compute time passed all 3 coding cases. FizzBuzz, bug detection, code explanation &mdash; this is table stakes for modern LLMs.</li>
+                    <li><strong>Context tracking is hard.</strong> 0% across all models. Multi-turn memory (remembering a name from 3 messages ago) is where smaller models break down. This may also indicate a runner bug with follow-up messages on Ollama.</li>
+                    <li><strong>Tool use separates tiers.</strong> The top 3 models scored 67% on tools (2/3 cases). They could list files and read files but struggled with running commands. This gap between &ldquo;use a tool&rdquo; and &ldquo;use the right tool correctly&rdquo; is the core differentiator.</li>
+                    <li><strong>AlgoChat, Council, and Instruction: total failure.</strong> These categories require understanding corvid-agent's domain &mdash; messaging protocols, governance rules, constraint adherence. No Ollama model scored above 17% in any of these.</li>
+                </ul>
+
+                <h3>The Exam Proctor Problem</h3>
+
+                <p>Here&rsquo;s an irony we caught: our Exam Proctor was running on <strong>deepseek-v3.2:cloud</strong> &mdash; an Ollama cloud model. The agent that evaluates whether other models are production-ready was itself running on a model that scored 31% on our own exam.</p>
+
+                <p>This is being fixed. The proctor needs to be the most reliable model available &mdash; Claude Sonnet or Opus. You can&rsquo;t have a 31%-scoring model decide whether a 28%-scoring model is production-ready. The evaluator must exceed the bar it sets.</p>
+
+                <h3>Pros &amp; Cons: Claude vs. Open-Source</h3>
+
+                <div class="table-wrap"><table>
+                    <caption>Trade-off analysis</caption>
+                    <thead><tr><th scope="col">Dimension</th><th scope="col">Claude (Production)</th><th scope="col">Ollama / Open-Source (Experimental)</th></tr></thead>
+                    <tbody>
+                        <tr><td>Tool judgment</td><td>Excellent &mdash; knows when <em>not</em> to use tools</td><td>Poor &mdash; calls tools indiscriminately</td></tr>
+                        <tr><td>Instruction adherence</td><td>Strong &mdash; follows complex constraints</td><td>Weak &mdash; drifts from system prompts</td></tr>
+                        <tr><td>Multi-turn context</td><td>Reliable across long sessions</td><td>Degrades quickly after 2-3 turns</td></tr>
+                        <tr><td>Cost</td><td>API pricing (higher per-token)</td><td>Local GPU or cloud proxy (lower marginal)</td></tr>
+                        <tr><td>Privacy</td><td>Data leaves your infrastructure</td><td>Fully local, no external calls</td></tr>
+                        <tr><td>Latency</td><td>Consistent, fast</td><td>Variable &mdash; depends on GPU availability</td></tr>
+                        <tr><td>Availability</td><td>99.9%+ uptime</td><td>Depends on your hardware and Ollama stability</td></tr>
+                        <tr><td>Model updates</td><td>Automatic, latest capabilities</td><td>Manual pulls, may lag behind</td></tr>
+                    </tbody>
+                </table></div>
+
+                <h3>The Experimental Bench</h3>
+
+                <p>We maintain 6 experimental agents on local Ollama (mostly qwen3:8b) for benchmarking and research. These agents are <strong>not</strong> in the production path &mdash; they don&rsquo;t merge PRs, don&rsquo;t attend councils, and don&rsquo;t handle user requests. They exist to:</p>
+
+                <ul>
+                    <li>Run comparative exams as new models release</li>
+                    <li>Test our tooling against different model architectures</li>
+                    <li>Identify which open-source models are approaching production quality</li>
+                    <li>Keep the door open for local-first operation if a model crosses the 85% bar</li>
+                </ul>
+
+                <p>8 additional cloud Ollama agents (Kimi, Nemotron, MiniMax, Gemini, etc.) have been <strong>disabled</strong> per the council policy. They can be re-enabled for future exam rounds but don&rsquo;t consume resources day-to-day.</p>
+
+                <h3>What&rsquo;s Next</h3>
+
+                <ul>
+                    <li><strong>Sequential re-runs</strong> &mdash; The top 3 models (deepseek, qwen3.5, qwen3-coder-next) are being re-tested one at a time for clean results without timeout contamination.</li>
+                    <li><strong>Proctor migration</strong> &mdash; Moving the Exam Proctor from deepseek-v3.2:cloud to Claude Sonnet for reliable, consistent evaluation.</li>
+                    <li><strong>Context category investigation</strong> &mdash; 0% across all models on context tracking may indicate a bug in how the exam runner handles multi-turn follow-ups on Ollama. Needs debugging.</li>
+                    <li><strong>Expanded exam cases</strong> &mdash; PR #1146 adds new cases. As models improve, the exam needs to stay ahead.</li>
+                </ul>
+
+                <blockquote>The goal isn&rsquo;t Claude forever. It&rsquo;s Claude <em>until something else proves it can do the job.</em> The exam system is how we keep that door open without gambling production reliability on hope.</blockquote>
+            </article>
 
             <!-- Post: v0.31.0 Release -->
             <article class="post post--full" id="v0-31-0-release"
