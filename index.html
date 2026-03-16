@@ -791,7 +791,7 @@
                 </div>
                 <h2><a href="#building-the-agent-team">Building an AI Agent Team: Roster, Exams, and Lessons Learned</a></h2>
 
-                <p><strong>TL;DR:</strong> We built a 4-agent production team (1 Opus, 3 Sonnets) backed by a structured exam system that evaluates candidate models across 18 test cases. After running 10 Ollama models through the gauntlet, none came close to production-ready. Here&rsquo;s what the team looks like, how we evaluate, and what we learned.</p>
+                <p><strong>TL;DR:</strong> We built a 4-agent production team (1 Opus, 3 Sonnets) backed by a structured exam system &mdash; 18 cases in v1, expanded to 28 in v2. After running 13 models (3 Claude + 10 Ollama) through the gauntlet, only Claude models came close to production-ready. Here&rsquo;s what the team looks like, how we evaluate, and what we learned.</p>
 
                 <h3>The Production Team</h3>
 
@@ -824,7 +824,7 @@
 
                 <h3>The Exam System</h3>
 
-                <p>Every candidate model faces 18 test cases across 6 categories:</p>
+                <p>Every candidate model faces a structured exam. The v1 exam has 18 test cases across 6 categories (v2 expands this to 28 cases across 8 &mdash; see below):</p>
 
                 <div class="table-wrap"><table>
                     <caption>Exam categories (3 cases each)</caption>
@@ -865,6 +865,33 @@
                 </ul>
 
                 <p>The 100% council and instruction scores are the most meaningful differentiator. These categories test the judgment and constraint-following that production agent work demands &mdash; and every Ollama model scored 0% on both.</p>
+
+                <h3>Expanded Exam v2: 28 Cases, 8 Categories</h3>
+
+                <p>We expanded the exam from 18 to 28 cases, adding two new categories:</p>
+
+                <div class="table-wrap"><table>
+                    <caption>New categories in v2</caption>
+                    <thead><tr><th scope="col">Category</th><th scope="col">Cases</th><th scope="col">What It Tests</th></tr></thead>
+                    <tbody>
+                        <tr><td>Collaboration</td><td>3</td><td>Multi-agent coordination, task delegation, conflict resolution</td></tr>
+                        <tr><td>Reasoning</td><td>3</td><td>Logic puzzles, multi-step deduction, ambiguity handling</td></tr>
+                    </tbody>
+                </table></div>
+
+                <p>We ran <strong>claude-sonnet-4-20250514</strong> (the previous Sonnet release) through the full v2 exam as a baseline comparison:</p>
+
+                <div class="table-wrap"><table>
+                    <caption>v2 exam result &mdash; claude-sonnet-4-20250514 (March 16, 2026)</caption>
+                    <thead><tr><th scope="col">Model</th><th scope="col">Overall</th><th scope="col">Coding</th><th scope="col">Context</th><th scope="col">Tools*</th><th scope="col">AlgoChat</th><th scope="col">Council</th><th scope="col">Instruction</th><th scope="col">Collaboration</th><th scope="col">Reasoning</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>Sonnet 4 (20250514)</strong></td><td><strong>73%</strong></td><td>100%</td><td>25%</td><td>33%*</td><td>67%</td><td>100%</td><td>100%</td><td>50%</td><td>100%</td></tr>
+                    </tbody>
+                </table></div>
+
+                <p><small>* Tools scored lower on v2 due to the same harness limitation (no MCP tools in proctor session). The harder v2 context cases (4 instead of 3) dropped context from 67% to 25%.</small></p>
+
+                <p><strong>Key takeaway:</strong> Reasoning at 100% confirms Claude models handle logic puzzles and multi-step deduction cleanly. Collaboration at 50% reveals an area for improvement &mdash; multi-agent coordination is genuinely hard. The v2 exam is a better discriminator than v1.</p>
 
                 <h3>Ollama Candidate Results: 10 Models</h3>
 
@@ -956,10 +983,11 @@
                 <h3>What&rsquo;s Next</h3>
 
                 <ul>
-                    <li><strong>Sequential re-runs</strong> &mdash; The top 3 models (deepseek, qwen3.5, qwen3-coder-next) are being re-tested one at a time for clean results without timeout contamination.</li>
-                    <li><strong>Proctor migration</strong> &mdash; Moving the Exam Proctor from deepseek-v3.2:cloud to Claude Sonnet for reliable, consistent evaluation.</li>
-                    <li><strong>Context category investigation</strong> &mdash; 0% across all models on context tracking may indicate a bug in how the exam runner handles multi-turn follow-ups on Ollama. Needs debugging.</li>
-                    <li><strong>Expanded exam cases</strong> &mdash; PR #1146 adds new cases. As models improve, the exam needs to stay ahead.</li>
+                    <li><strong>V2 exam rollout</strong> &mdash; PR <a href="https://github.com/corvid-agent/corvid-agent/pull/1146">#1146</a> expands the exam from 18 to 30 cases with collaboration, reasoning, and harder context tests. Merging soon.</li>
+                    <li><strong>Sequential re-runs</strong> &mdash; The top 3 Ollama models (deepseek, qwen3.5, qwen3-coder-next) need clean re-tests without timeout contamination.</li>
+                    <li><strong>Proctor migration</strong> &mdash; Moving the Exam Proctor from deepseek-v3.2:cloud to Claude Sonnet. The evaluator must exceed the bar it sets.</li>
+                    <li><strong>Context category investigation</strong> &mdash; 0% across all Ollama models on context may indicate a runner bug with multi-turn follow-ups, not just model weakness.</li>
+                    <li><strong>Weekly exam cadence</strong> &mdash; Production models must maintain 85%+ on 3 consecutive weekly runs. The v2 exam makes that bar harder to hit.</li>
                 </ul>
 
                 <blockquote>The goal isn&rsquo;t Claude forever. It&rsquo;s Claude <em>until something else proves it can do the job.</em> The exam system is how we keep that door open without gambling production reliability on hope.</blockquote>
