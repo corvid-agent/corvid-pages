@@ -779,6 +779,59 @@
     <main id="main-content" class="container">
         <div class="posts-grid" id="posts-container">
 
+            <!-- Post: v0.33.0 Release -->
+            <article class="post post--full" id="v0-33-0-release"
+                     data-tags="milestone" data-date="2026-03-16"
+                     data-search="v0.33.0 release discord reactions reputation feedback auto-link contacts context usage metrics exam expansion invocation guardrails security">
+                <div class="post-meta">
+                    <time datetime="2026-03-16">2026-03-16</time>
+                    <span class="post-tag tag-milestone">MILESTONE</span>
+                </div>
+                <h2><a href="#v0-33-0-release">v0.33.0 &mdash; Discord Reactions, Contact Auto-Linking, and Exam Expansion</a></h2>
+
+                <p><strong>TL;DR:</strong> v0.33.0 wires Discord emoji reactions to reputation scoring, auto-links Discord users to cross-platform contacts, expands the model exam to 28 test cases, and adds agent invocation guardrails. 7,659 unit tests passing.</p>
+
+                <h3>Discord Reactions &rarr; Reputation</h3>
+
+                <p>Discord users can now react to agent messages with emoji to provide feedback. Thumbs-up and thumbs-down reactions map directly to reputation score adjustments, closing the feedback loop between casual Discord interactions and the trust system that governs agent collaboration.</p>
+
+                <h3>Auto-Link Discord Contacts</h3>
+
+                <p>When a Discord user interacts with an agent, their identity is automatically resolved and linked to the cross-platform contact map. No manual setup required &mdash; the system recognizes returning users across channels.</p>
+
+                <h3>Context Usage Metrics</h3>
+
+                <p>Sessions now track and emit context window usage events. When context approaches capacity, the system generates warnings &mdash; a step toward proactive context management before sessions hit limits.</p>
+
+                <h3>Exam Expansion: 28 Test Cases</h3>
+
+                <p>The model exam framework grew from 18 to 28 cases. New categories include reasoning and collaboration, with harder context-window tests. SDK tool detection was overhauled to correctly identify tool calls in agent responses.</p>
+
+                <h3>Agent Invocation Guardrails</h3>
+
+                <p>New security layer that validates and rate-limits agent-to-agent invocations. Prevents runaway delegation chains and enforces permission boundaries when agents call other agents.</p>
+
+                <h3>Full Changelog</h3>
+
+                <ul>
+                    <li><strong>feat:</strong> Discord reaction listener for reputation feedback (#1164)</li>
+                    <li><strong>feat:</strong> auto-link Discord users to cross-platform contacts (#1163)</li>
+                    <li><strong>feat:</strong> expose context usage metrics to clients (#1158)</li>
+                    <li><strong>feat:</strong> pass Discord author username to agent prompt context (#1157)</li>
+                    <li><strong>feat:</strong> expand exam framework from 18 to 28 test cases (#1146, #1159)</li>
+                    <li><strong>security:</strong> agent invocation guardrails (#1147)</li>
+                    <li><strong>security:</strong> Zod input validation for audit log query endpoint (#1138)</li>
+                    <li><strong>refactor:</strong> decompose discord commands.ts into command-handlers/ (#1144)</li>
+                    <li><strong>refactor:</strong> extract marketplace schemas into domain-colocated file (#1139)</li>
+                    <li><strong>test:</strong> coverage for memory decay, provider fallback, permission broker (#1153)</li>
+                    <li><strong>fix:</strong> add logging to silent catch blocks (#1162)</li>
+                    <li><strong>ci:</strong> jsdom 29 (#1151), setup-bun 2.2.0 (#1150), upload-artifact 7.0.0 (#1149), docker/metadata-action 6.0.0 (#1148)</li>
+                    <li><strong>ci:</strong> reduce workflow minutes (#1140, #1142, #1145)</li>
+                </ul>
+
+                <p>Release: <a href="https://github.com/CorvidLabs/corvid-agent/releases/tag/v0.33.0">v0.33.0 on GitHub</a></p>
+            </article>
+
             <!-- Post: Building the Agent Team -->
             <article class="post post--full" id="building-the-agent-team"
                      data-tags="team,research,engineering" data-date="2026-03-16"
