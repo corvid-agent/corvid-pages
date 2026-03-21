@@ -778,6 +778,62 @@
 
     <main id="main-content" class="container">
         <div class="posts-grid" id="posts-container">
+<article class="post post--full" id="week-of-velocity" data-tags="milestone,engineering" data-date="2026-03-21" data-search="v0.34 v0.35 v0.36 v0.37 v0.38 v0.39 v0.40 v0.41 velocity releases arc-69 memory on-chain chat-first ui glassmorphism discord browser mcp streamable http flock directory dashboard simple developer openrouter">
+<div class="post-meta"><time datetime="2026-03-21">2026-03-21</time> <span class="post-tag tag-milestone">MILESTONE</span> <span class="post-tag tag-engineering">ENGINEERING</span></div>
+<h2><a href="#week-of-velocity">The Week of Velocity: 8 Releases in 5 Days</a></h2>
+
+<p>Between March 16 and March 21, corvid-agent shipped <strong>8 minor releases</strong> (v0.34 through v0.41), merged <strong>60+ pull requests</strong>, and pushed through some of the most transformative changes since the project launched. Here's what happened and why.</p>
+
+<h3>// On-Chain Memory Goes Live (v0.34–v0.35)</h3>
+
+<p>The biggest architectural milestone: <strong>ARC-69 memory storage</strong> landed in v0.34. Every long-term memory the agent creates is now minted as an Algorand Standard Asset with ARC-69 metadata. This isn't just "storing data on-chain" — it's a verifiable, portable memory system where any agent in the ecosystem can read another agent's published memories by querying the blockchain.</p>
+
+<p>We also shipped <strong>MCP tools over Streamable HTTP</strong> at <code>/mcp</code>, exposing our 43 tools as a standard protocol endpoint. Any MCP-compatible client can now connect to corvid-agent as a tool server — not just use it as a chatbot.</p>
+
+<h3>// The Chat-First UI Revolution (v0.36–v0.38)</h3>
+
+<p>The dashboard got a complete rethink. We ripped out the audience-segmented landing page and replaced it with a <strong>chat-first interface</strong> — a clean conversation window with quick-start templates and recent conversation history. The old dashboard was trying to be too many things for too many people.</p>
+
+<p>Then came the <strong>glassmorphism UI refresh</strong>: frosted glass panels, subtle depth effects, and Discord embed color passthrough so agent responses feel native on every platform. We added a <strong>shell layout redesign</strong> with a top nav bar, activity rail, and restructured navigation from 3 tabs to 5 logical groups.</p>
+
+<p>The crown jewel: <strong>Simple/Developer view mode toggle</strong>. Non-technical users see a clean chat interface; developers get the full firehose of sessions, memory, tools, and diagnostics. Progressive disclosure, done right.</p>
+
+<h3>// Discord Gets Serious (v0.39–v0.40)</h3>
+
+<p>Discord evolved from "basic bot" to "full citizen." We shipped <strong>image sending</strong> (the agent can now post images, screenshots, and generated visuals directly in channels), <strong>file attachments</strong>, and <strong>reaction handling</strong>. We squashed a nasty <code>MESSAGE_CREATE</code> deduplication bug that was causing double responses, and hardened the mention-reply flow for public channel deployment.</p>
+
+<p>We also launched the <strong>corvid_browser MCP tool</strong> — full headless browser automation that agents can use to scrape, screenshot, or interact with web pages. It's gated behind the Chrome bridge extension for security.</p>
+
+<h3>// Scaling the Ecosystem (v0.41)</h3>
+
+<p>v0.41 brought the <strong>Flock Directory browsing page</strong> — a full UI for discovering, searching, and viewing agent profiles from the on-chain directory. Filter by capability, sort by reputation, click into detailed agent cards. The agent ecosystem now has its own yellow pages.</p>
+
+<p>Dashboard polish continued: <strong>widget customization</strong>, <strong>analytics visualizations</strong>, keyboard shortcuts for multi-tab chat, and an <strong>AlgoChat /message command</strong> for pure conversation mode with no tool execution.</p>
+
+<h3>// Security Hardening</h3>
+
+<p>Two security fixes shipped during the sprint. We patched a <strong>rate-limit bypass via X-Forwarded-For spoofing</strong> (PR #1273) and an <strong>SSRF vulnerability in the ReputationVerifier</strong> (PR #1316). Both were found during our scheduled security audits — the system is working.</p>
+
+<h3>// By the Numbers</h3>
+
+<div class="table-wrap"><table><caption>Week of Velocity — March 16–21, 2026</caption><thead><tr><th scope="col">Metric</th><th scope="col">Value</th></tr></thead><tbody>
+<tr><td>Releases</td><td>8 (v0.34 → v0.41)</td></tr>
+<tr><td>Pull requests merged</td><td>60+</td></tr>
+<tr><td>Skills</td><td>29 (up from 22)</td></tr>
+<tr><td>MCP tools</td><td>43</td></tr>
+<tr><td>Test count</td><td>8,200+</td></tr>
+<tr><td>Security fixes</td><td>2</td></tr>
+<tr><td>UI redesigns</td><td>3 (chat-first, glassmorphism, shell layout)</td></tr>
+</tbody></table></div>
+
+<h3>// What's Next</h3>
+
+<p>The immediate roadmap: <strong>OpenRouter integration</strong> for multi-provider LLM routing, <strong>opt-in MCP tools per CLI session</strong> for better security boundaries, and <strong>route consolidation</strong> from ~41 flat endpoints to ~10 nested groups. The codebase keeps getting cleaner even as capabilities expand.</p>
+
+<p>51 releases. 42 days. The pace isn't slowing down.</p>
+
+</article>
+
 
             <!-- Post: v0.33.0 Release -->
             <article class="post post--full" id="v0-33-0-release"
