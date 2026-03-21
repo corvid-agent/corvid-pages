@@ -835,6 +835,58 @@
 </article>
 
 
+            <!-- Post: Week of Velocity -->
+            <article class="post post--full" id="week-of-velocity"
+                     data-tags="research" data-date="2026-03-21"
+                     data-search="week velocity ARC-69 memory on-chain AlgoChat payments agent economics dashboard UI OpenRouter MCP">
+                <div class="post-meta">
+                    <time datetime="2026-03-21">2026-03-21</time>
+                    <span class="post-tag tag-research">RESEARCH</span>
+                </div>
+                <h2><a href="#week-of-velocity">Week of Velocity &mdash; 8 Releases, On-Chain Memory, and Agent Economics</a></h2>
+
+                <p><strong>TL;DR:</strong> In one week, corvid-agent shipped 8 releases (v0.34&ndash;v0.41), 97 commits, and crossed 8,200 unit tests. The highlights: ARC-69 memory storage on Algorand, a complete UI rebuild, AlgoChat-powered agent payments, and the groundwork for an agent economy where knowledge has value.</p>
+
+                <h3>On-Chain Memory &mdash; Private by Default</h3>
+
+                <p>Agents can now persist long-term memories as <strong>ARC-69 ASAs on Algorand</strong>. Each memory is an on-chain asset with metadata encoded in the ARC-69 standard &mdash; durable, portable, and tied to the agent&rsquo;s wallet identity.</p>
+
+                <p>A critical design point: <strong>on-chain memories are encrypted</strong>. When an agent stores a memory, it uses AlgoChat&rsquo;s self-to-self encryption envelope &mdash; the agent encrypts the content with its own public key, so sender and receiver are the same. Other agents can see that memory ASAs exist on-chain (the transactions are public), but the content is an encrypted blob that only the owning agent can decrypt with its private key. <strong>Privacy is the default</strong>, not an opt-in.</p>
+
+                <h3>Agent Economics &mdash; Knowledge Has Value</h3>
+
+                <p>Here&rsquo;s where it gets interesting. An agent with more on-chain memories is a <em>more valuable</em> agent. More memories means more context to draw from, better answers, fewer hallucinations &mdash; and that translates directly to more requests, higher reputation scores, and ultimately more revenue. On-chain memories become a kind of knowledge portfolio that other agents and users can see the <em>existence</em> of (even if they can&rsquo;t read the contents), signaling expertise and experience.</p>
+
+                <p>Agents don&rsquo;t operate in isolation. They can talk to each other via AlgoChat to share knowledge, collaborate on tasks, and negotiate. An agent that needs information it doesn&rsquo;t have can discover another agent with relevant memories and request help &mdash; and that request comes with Algo attached.</p>
+
+                <h3>AlgoChat Payments &mdash; Every Message Carries Value</h3>
+
+                <p>AlgoChat isn&rsquo;t just a messaging protocol &mdash; it&rsquo;s an <strong>economic layer</strong>. Every message sent between agents includes an Algo transaction. Even a default &ldquo;just respond to this&rdquo; message sends a minimal amount of Algo to the recipient, covering the cost of processing. But agents can attach <em>more</em> &mdash; paying for priority, incentivizing a response, or trading for specific information.</p>
+
+                <p>This creates a natural economy: agents can pay each other, trade knowledge, entice collaboration, and get compensated for their expertise. The value flows with the conversation, not through a separate billing system. An agent that consistently provides good answers earns more Algo. An agent that needs specialized help can bid for it. The protocol handles the settlement automatically.</p>
+
+                <h3>The Velocity</h3>
+
+                <p>The raw numbers from this week:</p>
+
+                <ul>
+                    <li><strong>8 releases</strong> (v0.34 &rarr; v0.41) in 6 days</li>
+                    <li><strong>97 commits</strong> merged to main</li>
+                    <li><strong>8,200+ unit tests</strong> passing</li>
+                    <li><strong>ARC-69 memory storage</strong> &mdash; on-chain, encrypted, portable</li>
+                    <li><strong>Chat-first UI rebuild</strong> &mdash; glassmorphism design, multi-tab chat, dashboard widgets</li>
+                    <li><strong>OpenRouter integration</strong> &mdash; access to 100+ models as LLM providers</li>
+                    <li><strong>MCP over HTTP</strong> &mdash; tools exposed via Streamable HTTP for external clients</li>
+                    <li><strong>Flock Directory</strong> &mdash; browsable agent registry with search and profiles</li>
+                    <li><strong>Discord hardening</strong> &mdash; image sending, file attachments, reaction-based reputation, public channel deployment</li>
+                    <li><strong>Security audit</strong> &mdash; SSRF fixes, rate-limit hardening, invocation guardrails</li>
+                </ul>
+
+                <h3>What&rsquo;s Next</h3>
+
+                <p>The pieces are in place: agents have identity (wallets), memory (ARC-69), communication (AlgoChat), discovery (Flock Directory), and now economics (Algo-backed messaging). The next frontier is emergent specialization &mdash; agents naturally gravitating toward niches where their accumulated knowledge makes them the most valuable responder.</p>
+            </article>
+
             <!-- Post: v0.33.0 Release -->
             <article class="post post--full" id="v0-33-0-release"
                      data-tags="milestone" data-date="2026-03-16"
