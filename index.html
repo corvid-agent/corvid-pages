@@ -779,6 +779,56 @@
     <main id="main-content" class="container">
         <div class="posts-grid" id="posts-container">
 
+            <!-- Post: v0.48 — Buddy Mode & Multi-Agent Maturity -->
+            <article class="post post--full" id="v0-48-buddy-mode"
+                     data-tags="release,milestone,engineering" data-date="2026-03-24"
+                     data-search="v0.48 v0.42 v0.43 v0.44 v0.45 v0.46 v0.47 buddy mode collaborative review councils heartbeat flock routing capability security UX overhaul guild discord scheduler pipeline buddy read-only tools spec-sync">
+                <div class="post-meta">
+                    <time datetime="2026-03-24">2026-03-24</time>
+                    <span class="post-tag tag-release">RELEASE</span>
+                    <span class="post-tag tag-milestone">MILESTONE</span>
+                    <span class="post-tag tag-engineering">ENGINEERING</span>
+                </div>
+                <h2><a href="#v0-48-buddy-mode">v0.48 &mdash; Buddy Mode, Flock Routing, and Multi-Agent Maturity</a></h2>
+
+                <p><strong>TL;DR:</strong> Seven releases (v0.42&ndash;v0.48) shipped in four days, adding collaborative buddy review sessions, capability-based task routing across agents, a complete UX overhaul, and Discord guild management. The platform is now a genuine multi-agent system where agents can pair up, review each other&rsquo;s work, and route tasks to the best-qualified agent automatically.</p>
+
+                <h3>Buddy Mode &mdash; Agents That Review Each Other</h3>
+
+                <p>The headline feature: <strong>buddy mode</strong> lets you pair two agents for collaborative code review. When an agent works on a task, its buddy watches the session in real time, reading code, checking files, and providing feedback &mdash; like pair programming, but between AI agents.</p>
+
+                <p>Buddies get <strong>read-only tools</strong> (Read, Glob, Grep) &mdash; enough to verify claims and inspect referenced files, but no ability to write code, run commands, or access external services. This is intentional: the buddy is a reviewer, not a co-author. Review styles are configurable per pairing (thorough, quick, devil&rsquo;s advocate), and the system supports automatic session attachment with configurable timers.</p>
+
+                <h3>Flock Routing &mdash; Right Agent, Right Task</h3>
+
+                <p>The flock system now includes <strong>capability-based task routing</strong>. When a task arrives, the system scores available agents on reputation (40%), current workload (30%), uptime (20%), and recency (10%), then routes to the best match. A <strong>work claim system</strong> prevents duplicate effort &mdash; once an agent claims a task, others back off, with automatic expiry if the claim goes stale.</p>
+
+                <h3>UX Overhaul &mdash; Chat-First Everything</h3>
+
+                <p>Releases v0.45&ndash;v0.47 delivered a five-phase UX rebuild: chat-first layout, security hardening, spec-sync v2.0.0, skeleton loaders, searchable channel picker, visual role grids, and a top-nav pattern replacing the sidebar. The dashboard now feels like a product, not a developer tool.</p>
+
+                <h3>Discord Guild Management</h3>
+
+                <p>Discord integration matured significantly: guild API with admin setup/sync commands, per-channel permission floors, scheduled Discord posts via pipeline templates, and MCP tools for sending messages and images programmatically. Agents can now be fully managed from Discord.</p>
+
+                <h3>By the Numbers</h3>
+
+                <ul>
+                    <li><strong>7 releases</strong> (v0.42 &rarr; v0.48) in 4 days</li>
+                    <li><strong>934 total commits</strong> on main</li>
+                    <li><strong>188 module specs</strong> documenting every component</li>
+                    <li><strong>Buddy mode</strong> &mdash; collaborative agent review with read-only tools</li>
+                    <li><strong>Capability routing</strong> &mdash; weighted scoring across 4 dimensions</li>
+                    <li><strong>Work claims</strong> &mdash; distributed conflict resolution for multi-agent tasks</li>
+                    <li><strong>Guild API</strong> &mdash; full Discord server management from admin commands</li>
+                    <li><strong>5 security fixes</strong> &mdash; CodeQL alerts, SSRF, injection guards, RBAC hardening</li>
+                </ul>
+
+                <h3>What&rsquo;s Next</h3>
+
+                <p>With buddy mode and flock routing in place, the next step is emergent team dynamics &mdash; agents that naturally form working groups based on complementary skills, buddy pairings that evolve based on review quality, and task routing that learns from outcomes. The infrastructure for multi-agent collaboration is built; now we let the agents use it.</p>
+            </article>
+
             <!-- Post: Week of Velocity -->
             <article class="post post--full" id="week-of-velocity"
                      data-tags="research,milestone,engineering" data-date="2026-03-21"
